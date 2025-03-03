@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: notification-app-container
-        image: mangoade100g/notification-app:latest 
+        image: mangoade100g/notification:1.0.3
         ports:
         - containerPort: 8080
         resources:
