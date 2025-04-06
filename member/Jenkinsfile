@@ -54,7 +54,7 @@ pipeline {
         stage('컨테이너 빌드 및 업로드') {
             steps {
                 // jar 파일 복사
-                sh "cp ./build/libs/app-0.0.1-SNAPSHOT.jar ./${CLASS_NUM}/build/docker/app-0.0.1-SNAPSHOT.jar"
+                sh "cp ./build/libs/*.jar ./${CLASS_NUM}/build/docker/app-0.0.1-SNAPSHOT.jar"
 
                 script{
 
