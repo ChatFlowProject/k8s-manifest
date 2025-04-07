@@ -21,12 +21,12 @@ configmap:
   data:
     properties:
       profile_active: "dev"
-      datasource: "/usr/src/member/datasource/db-info.yaml"
+      datasource: "/usr/src/member/datasource/datasource-info.yaml"
 
 secret:
   data:
-    db:
-      db-info.yaml: |
+    datasource:
+      datasource-info.yaml: |
         driver-class-name: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://43.203.119.187:3306/chatflow?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
         username: snowball
