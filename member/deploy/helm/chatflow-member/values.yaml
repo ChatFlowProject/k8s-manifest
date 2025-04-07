@@ -90,3 +90,18 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+configmap:
+  data:
+    properties:
+      profile_active: "prod"
+      datasource: "/usr/src/member/datasource/db-info.yaml"
+
+secret:
+  data:
+    db:
+      db-info.yaml: |
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://43.203.119.187:3306/chatflow?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+        username: snowball
+        password: 1234
