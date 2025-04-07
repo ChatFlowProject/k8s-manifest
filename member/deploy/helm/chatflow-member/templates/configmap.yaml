@@ -5,4 +5,4 @@ metadata:
   labels:
     {{- include "chatflow-member.labels" . | nindent 4 }}
 data:
-  {{- toYaml .Values.configmap.data.properties | nindent 2 }}
+  {{- toYaml .Values.configmap.properties | nindent 2 }}

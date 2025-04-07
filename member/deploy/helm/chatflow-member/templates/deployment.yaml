@@ -47,6 +47,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "chatflow-member.fullname" . }}-properties
+            - secretRef:
+                name: {{ include "chatflow-member.fullname" . }}-datasource
 
 {{/*          {{- with .Values.livenessProbe }}*/}}
 {{/*          livenessProbe:*/}}
