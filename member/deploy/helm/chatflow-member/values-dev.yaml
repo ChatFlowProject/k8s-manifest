@@ -15,7 +15,7 @@ resources:
     memory: 100Mi
 
 service:
-  nodePort: 31002
+  nodePort: 32002
 
 configmap:
   properties:

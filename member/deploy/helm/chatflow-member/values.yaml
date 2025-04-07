@@ -33,7 +33,7 @@ securityContext: {}
 service:
   type: NodePort
   port: 8080
-  nodePort: 30002
+  nodePort: 30001
 
 # This block is for setting up the ingress for more information can be found here: https://kubernetes.io/docs/concepts/services-networking/ingress/
 ingress:
@@ -60,14 +60,20 @@ resources:
     memory: 200Mi
     cpu: 200m
 
-livenessProbe:
-  httpGet:
-    path: /actuator/health/liveness
-    port: 8080
-readinessProbe:
-  httpGet:
-    path: /actuator/health/readiness
-    port: 8080
+#startupProbe:
+#  httpGet:
+#    path: /actuator/startup
+#    port: 8080
+#  periodSeconds: 5
+#  failureThreshold: 24
+#livenessProbe:
+#  httpGet:
+#    path: /actuator/health/liveness
+#    port: 8080
+#readinessProbe:
+#  httpGet:
+#    path: /actuator/health/readiness
+#    port: 8080
 
 autoscaling:
   enabled: false
