@@ -49,16 +49,14 @@ spec:
                 name: {{ include "chatflow-member.fullname" . }}-properties
             - secretRef:
                 name: {{ include "chatflow-member.fullname" . }}-datasource
-
-{{/*          {{- with .Values.livenessProbe }}*/}}
-{{/*          livenessProbe:*/}}
-{{/*            {{- toYaml . | nindent 12 }}*/}}
-{{/*          {{- end }}*/}}
-{{/*          {{- with .Values.readinessProbe }}*/}}
-{{/*          readinessProbe:*/}}
-{{/*            {{- toYaml . | nindent 12 }}*/}}
-{{/*          {{- end }}*/}}
-
+          {{- with .Values.livenessProbe }}
+          livenessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.readinessProbe }}
+          readinessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           {{- with .Values.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
