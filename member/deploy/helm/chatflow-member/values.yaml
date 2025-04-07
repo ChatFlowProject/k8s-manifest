@@ -83,7 +83,7 @@ volumeMounts:
 volumes:
   - name: secret-datasource
     secret:
-      secretName: chatflow-memeber-datasource
+      secretName: chatflow-member-datasource
 
 nodeSelector: {}
 
