@@ -53,12 +53,12 @@ ingress:
   #      - chart-example.local
 
 resources:
-  requests:
-    memory: 100Mi
-    cpu: 100m
   limits:
-    memory: 200Mi
-    cpu: 200m
+    cpu: 200m # 100m = 0.1 CPU 코어
+    memory: 500Mi
+  requests:
+    cpu: 100m
+    memory: 400Mi
 
 #startupProbe:
 #  httpGet:
