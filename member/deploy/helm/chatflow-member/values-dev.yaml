@@ -1,0 +1,23 @@
+
+replicaCount: 1
+
+image:
+  repository: jerry0339/chatflow-member
+  pullPolicy: IfNotPresent
+  tag: 0.0.1
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 200Mi
+  requests:
+    cpu: 100m
+    memory: 100Mi
+
+service:
+  nodePort: 31002
+
+configmap:
+  data:
+    properties:
+      profile_active: "dev"
