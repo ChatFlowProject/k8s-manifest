@@ -57,8 +57,8 @@ resources:
     cpu: 400m # 100m = 0.1 CPU 코어
     memory: 500Mi
   requests:
-    cpu: 300m
-    memory: 400Mi
+    cpu: 200m
+    memory: 300Mi
 
 #startupProbe:
 #  httpGet:

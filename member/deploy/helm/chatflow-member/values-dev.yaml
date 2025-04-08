@@ -11,8 +11,8 @@ resources:
     cpu: 400m
     memory: 500Mi
   requests:
-    cpu: 300m
-    memory: 400Mi
+    cpu: 200m
+    memory: 300Mi
 
 service:
   nodePort: 31002
