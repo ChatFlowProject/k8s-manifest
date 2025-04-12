@@ -98,7 +98,7 @@ secret:
     DB_USERNAME: "snowball"
     DB_PASSWORD: "1234"
   awsS3Config:
-    BUCKET_NAME: ""
-    ACCESS_KEY: ""
-    SECRET_KEY: ""
-    REGION: ""
+    S3_BUCKET_NAME: ""
+    S3_ACCESS_KEY: ""
+    S3_SECRET_KEY: ""
+    S3_REGION: ""
