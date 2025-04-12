@@ -1,0 +1,23 @@
+
+replicaCount: 2
+
+image:
+  repository: jerry0339/chatflow-team
+  pullPolicy: IfNotPresent
+  tag: 0.0.1
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 600Mi
+  requests:
+    cpu: 250m
+    memory: 300Mi
+
+service:
+  nodePort: 30003
+
+configmap:
+  properties:
+    PROFILE_ACTIVE: prod
+    MEMBER_SERVICE_URL: http://flowchat.shop:30002
