@@ -3,4 +3,4 @@ FROM openjdk:17
 COPY ./*.jar /usr/src/team/app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "/usr/src/team/app.jar"]
-WORKDIR /usr/src/tean
+WORKDIR /usr/src/team

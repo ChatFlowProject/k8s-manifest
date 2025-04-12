@@ -20,22 +20,13 @@ podAnnotations: {}
 podLabels: {}
 
 podSecurityContext: {}
-  # fsGroup: 2000
-
 securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
 
 service:
   type: NodePort
   port: 8080
   nodePort: 30002
 
-# This block is for setting up the ingress for more information can be found here: https://kubernetes.io/docs/concepts/services-networking/ingress/
 ingress:
   enabled: false
   className: ""
@@ -92,9 +83,7 @@ autoscaling:
 #      secretName: chatflow-member-datasource
 
 nodeSelector: {}
-
 tolerations: []
-
 affinity: {}
 
 configmap:
