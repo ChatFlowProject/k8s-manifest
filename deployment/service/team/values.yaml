@@ -25,7 +25,7 @@ securityContext: {}
 service:
   type: NodePort
   port: 8080
-  nodePort: 30002
+  nodePort: 30003
 
 ingress:
   enabled: false
@@ -88,7 +88,8 @@ affinity: {}
 
 configmap:
   properties:
-    PROFILE_ACTIVE: []
+    PROFILE_ACTIVE: ""
+    MEMBER_SERVICE_URL: ""
 
 secret:
   datasource:
@@ -96,3 +97,8 @@ secret:
     DB_URL: "jdbc:mysql://43.203.119.187:3306/chatflow?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8"
     DB_USERNAME: "snowball"
     DB_PASSWORD: "1234"
+  awsS3Config:
+    BUCKET_NAME: ""
+    ACCESS_KEY: ""
+    SECRET_KEY: ""
+    REGION: ""
