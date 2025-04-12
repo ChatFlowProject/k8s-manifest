@@ -1,0 +1,83 @@
+pipeline {
+    agent any
+
+    tools {
+        gradle 'gradle-8.11.1'
+        jdk 'jdk-17'
+    }
+
+    parameters {
+        // 배포 환경 선택
+        choice(choices: ['dev', 'prod'], name: 'PROFILE', description: '배포 환경 선택')
+    }
+
+    environment {
+        DOCKERHUB_USERNAME = 'jerry0339'
+        GITHUB_URL = 'https://github.com/ChatFlowProject/k8s-manifest.git'
+
+        APP_VERSION = '1.0.0'
+        // %y%m%d.%H%M%S: 년월일.시분초
+        // default: UTC 기준, 한국 시간(KST)으로 변경하려면 Jenkins JVM 옵션 변경해야 함
+        BUILD_DATE = sh(script: "echo `date +%y%m%d.%H%M%S`", returnStdout: true).trim()
+        TAG = "${APP_VERSION}-" + "${BUILD_DATE}"
+
+        // sparseCheckoutPath 설정용 환경 변수
+        CLASS_NUM = 'member'
+        CHART_NAME = 'chatflow-member'
+    }
+
+    stages {
+        stage('소스파일 체크아웃') {
+            steps {
+                // 소스코드를 가져올 Github 주소
+                git branch: 'main', url: 'https://github.com/ChatFlowProject/member.git'
+            }
+        }
+
+        stage('소스 빌드') {
+            steps {
+                // 755권한 필요 (윈도우에서 Git으로 소스 업로드시 권한은 644)
+                sh "chmod +x ./gradlew"
+                sh "gradle clean build"
+            }
+        }
+
+        stage('릴리즈파일 체크아웃') {
+            steps {
+                checkout scmGit(branches: [[name: '*/main']],
+                        extensions: [[$class: 'SparseCheckoutPaths',
+                                      sparseCheckoutPaths: [[path: "/${CLASS_NUM}"]]]],
+                        userRemoteConfigs: [[url: "${GITHUB_URL}"]])
+            }
+        }
+
+        stage('컨테이너 빌드 및 업로드') {
+            steps {
+                // jar 파일 복사
+                sh "cp ./build/libs/*.jar ./${CLASS_NUM}/build/docker/app-0.0.1-SNAPSHOT.jar"
+
+                script{
+
+                    // 도커 로그인 - Jenkins Credentials에 저장된 데이터 이용
+                    withCredentials([usernamePassword(credentialsId: 'docker_password', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
+                        sh "echo " + '${PASSWORD}' + " | docker login -u " + '${USERNAME}' + " --password-stdin"
+                    }
+
+                    // 도커 빌드 및 업로드
+                    sh "docker build ./${CLASS_NUM}/build/docker -t ${DOCKERHUB_USERNAME}/${CHART_NAME}:${TAG}"
+                    sh "docker push ${DOCKERHUB_USERNAME}/${CHART_NAME}:${TAG}"
+
+                    // 도커 이미지 삭제
+                    sh "docker rmi ${DOCKERHUB_USERNAME}/${CHART_NAME}:${TAG}"
+                }
+            }
+
+            post {
+                always {
+                    // 도커 로그아웃
+                    sh "docker logout"
+                }
+            }
+        }
+    }
+}
