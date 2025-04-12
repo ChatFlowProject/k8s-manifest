@@ -48,7 +48,7 @@ spec:
             - configMapRef:
                 name: {{ include "member.fullname" . }}-properties
             - secretRef:
-                name: {{ include "member.fullname" . }}-datasource
+                name: {{ include "member.fullname" . }}-cred
           {{- with .Values.startupProbe }}
           startupProbe:
             {{- toYaml . | nindent 12 }}
