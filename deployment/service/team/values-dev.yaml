@@ -2,7 +2,7 @@
 replicaCount: 1
 
 image:
-  repository: jerry0339/chatflow-team
+  repository: chatflowgcp/chatflow-team
   pullPolicy: IfNotPresent
   tag: 0.0.1
 
