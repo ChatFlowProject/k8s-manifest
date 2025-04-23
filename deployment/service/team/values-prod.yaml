@@ -8,11 +8,11 @@ image:
 
 resources:
   limits:
-    cpu: 300m
-    memory: 600Mi
+    cpu: 500m
+    memory: 1000Mi
   requests:
-    cpu: 150m
-    memory: 300Mi
+    cpu: 250m
+    memory: 500Mi
 
 service:
   nodePort: 30003
