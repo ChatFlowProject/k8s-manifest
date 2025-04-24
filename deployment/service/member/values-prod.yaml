@@ -7,12 +7,12 @@ image:
   tag: 0.0.1
 
 resources:
-  limits:
-    cpu: 500m
-    memory: 1000Mi
   requests:
-    cpu: 250m
-    memory: 500Mi
+    cpu: 200m
+    memory: 400Mi
+  limits:
+    cpu: 300m
+    memory: 600Mi
 
 service:
   nodePort: 30002
