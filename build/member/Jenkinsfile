@@ -12,7 +12,7 @@ pipeline {
     }
 
     environment {
-        DOCKERHUB_USERNAME = 'chatflowgcp'
+        DOCKERHUB_USERNAME = 'chatflow'
         GITHUB_URL = 'https://github.com/ChatFlowProject/k8s-manifest.git'
 
         APP_VERSION = '1.0.0'
