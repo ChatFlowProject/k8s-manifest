@@ -2,7 +2,7 @@
 replicaCount: 1
 
 image:
-  repository: chatflow/chatflow-fe
+  repository: chatflow/fe
   pullPolicy: IfNotPresent
   tag: "1.0.0"
 
