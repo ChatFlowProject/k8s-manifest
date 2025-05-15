@@ -20,3 +20,4 @@ service:
 configmap:
   properties:
     PROFILE_ACTIVE: prod
+    MEMBER_SERVICE_URL: http://flowchat.shop:30002
