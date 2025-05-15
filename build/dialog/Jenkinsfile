@@ -22,15 +22,15 @@ pipeline {
         TAG = "${APP_VERSION}-" + "${BUILD_DATE}"
 
         // sparseCheckoutPath 설정용 환경 변수
-        SERVICE_NAME = 'chat'
-        IMAGE_NAME = 'chatflow-chat'
+        SERVICE_NAME = 'dialog'
+        IMAGE_NAME = 'dialog'
     }
 
     stages {
         stage('소스파일 체크아웃') {
             steps {
                 // 소스코드를 가져올 Github 주소
-                git branch: 'main', url: 'https://github.com/ChatFlowProject/chat.git'
+                git branch: 'main', url: 'https://github.com/ChatFlowProject/dialog.git'
             }
         }
 

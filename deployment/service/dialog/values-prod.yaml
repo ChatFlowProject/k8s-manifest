@@ -1,0 +1,22 @@
+
+replicaCount: 1
+
+image:
+  repository: chatflow/dialog
+  pullPolicy: IfNotPresent
+  tag: 0.0.1
+
+resources:
+  requests:
+    cpu: 200m
+    memory: 400Mi
+  limits:
+    cpu: 300m
+    memory: 600Mi
+
+service:
+  nodePort: 30004
+
+configmap:
+  properties:
+    PROFILE_ACTIVE: prod

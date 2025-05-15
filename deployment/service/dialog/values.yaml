@@ -2,7 +2,7 @@
 replicaCount: 2
 
 image:
-  repository: chatflow/chatflow-team
+  repository: chatflow/dialog
   pullPolicy: IfNotPresent
   tag: ""
 
@@ -25,14 +25,14 @@ securityContext: {}
 service:
   type: NodePort
   port: 8080
-  nodePort: 30003
+  nodePort: 30004
 
 ingress:
   enabled: false
   className: ""
   annotations: {}
     # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+  # kubernetes.io/tls-acme: "true"
   hosts:
     - host: chart-example.local
       paths:
@@ -73,23 +73,13 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
-#volumeMounts:
-#  - name: secret-datasource
-#    mountPath: /usr/src/member/datasource
-#
-#volumes:
-#  - name: secret-datasource
-#    secret:
-#      secretName: chatflow-member-datasource
-
 nodeSelector: {}
 tolerations: []
 affinity: {}
 
 configmap:
   properties:
-    PROFILE_ACTIVE: ""
-    MEMBER_SERVICE_URL: ""
+    PROFILE_ACTIVE: prod
 
 secret:
   datasource:
@@ -97,8 +87,3 @@ secret:
     DB_URL: "jdbc:mysql://43.203.119.187:3306/chatflow?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8"
     DB_USERNAME: "snowball"
     DB_PASSWORD: "1234"
-  awsS3Config:
-    S3_BUCKET_NAME: ""
-    S3_ACCESS_KEY: ""
-    S3_SECRET_KEY: ""
-    S3_REGION: ""
