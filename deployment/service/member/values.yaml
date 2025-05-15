@@ -2,7 +2,7 @@
 replicaCount: 2
 
 image:
-  repository: chatflow/chatflow-member
+  repository: chatflow/member
   pullPolicy: IfNotPresent
   tag: ""
 
@@ -88,11 +88,11 @@ affinity: {}
 
 configmap:
   properties:
-    PROFILE_ACTIVE: prod
+    PROFILE_ACTIVE: ""
 
 secret:
   datasource:
     DB_DRIVER_CLASS_NAME: "com.mysql.cj.jdbc.Driver"
-    DB_URL: "jdbc:mysql://43.203.119.187:3306/chatflow?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8"
+    DB_URL: "jdbc:mysql://43.203.119.187:3306/chatflow_member?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8"
     DB_USERNAME: "snowball"
     DB_PASSWORD: "1234"

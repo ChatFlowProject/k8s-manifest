@@ -23,7 +23,7 @@ pipeline {
 
         // sparseCheckoutPath 설정용 환경 변수
         SERVICE_NAME = 'notification'
-        IMAGE_NAME = 'chatflow-notification'
+        IMAGE_NAME = 'notification'
     }
 
     stages {

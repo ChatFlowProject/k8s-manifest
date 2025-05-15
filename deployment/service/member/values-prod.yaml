@@ -2,7 +2,7 @@
 replicaCount: 1
 
 image:
-  repository: chatflow/chatflow-member
+  repository: chatflow/member
   pullPolicy: IfNotPresent
   tag: 0.0.1
 

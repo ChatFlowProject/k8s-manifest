@@ -23,7 +23,7 @@ pipeline {
 
         // sparseCheckoutPath 설정용 환경 변수
         SERVICE_NAME = 'member'
-        IMAGE_NAME = 'chatflow-member'
+        IMAGE_NAME = 'member'
     }
 
     stages {

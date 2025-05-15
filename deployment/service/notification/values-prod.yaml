@@ -2,7 +2,7 @@
 replicaCount: 2
 
 image:
-  repository: chatflow/team
+  repository: chatflow/notification
   pullPolicy: IfNotPresent
   tag: 0.0.1
 
@@ -20,4 +20,3 @@ service:
 configmap:
   properties:
     PROFILE_ACTIVE: prod
-    MEMBER_SERVICE_URL: http://nps.flowchat.shop:30002
