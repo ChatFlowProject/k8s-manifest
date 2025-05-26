@@ -12,3 +12,4 @@ spec:
       name: http
   selector:
     {{- include "team.selectorLabels" . | nindent 4 }}
+    version: stable

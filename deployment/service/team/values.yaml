@@ -87,6 +87,7 @@ tolerations: []
 affinity: {}
 
 rollouts:
+  version: stable
   autoPromotionEnabled: false
 
 configmap:
