@@ -9,10 +9,10 @@ image:
 resources:
   requests:
     cpu: 200m
-    memory: 400Mi
+    memory: 300Mi
   limits:
-    cpu: 300m
-    memory: 600Mi
+    cpu: 200m
+    memory: 300Mi
 
 service:
   nodePort: 30002

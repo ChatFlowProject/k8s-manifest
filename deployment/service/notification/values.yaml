@@ -44,11 +44,11 @@ ingress:
   #      - chart-example.local
 
 resources:
-  limits:
-    cpu: 250m # 100m = 0.1 CPU 코어
-    memory: 500Mi
   requests:
-    cpu: 150m
+    cpu: 200m
+    memory: 300Mi
+  limits:
+    cpu: 200m
     memory: 300Mi
 
 autoscaling:

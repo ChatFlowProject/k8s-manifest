@@ -45,10 +45,10 @@ ingress:
 
 resources:
   limits:
-    cpu: 250m # 100m = 0.1 CPU 코어
-    memory: 500Mi
+    cpu: 200m # 100m = 0.1 CPU 코어
+    memory: 300Mi
   requests:
-    cpu: 150m
+    cpu: 200m
     memory: 300Mi
 
 #startupProbe:
