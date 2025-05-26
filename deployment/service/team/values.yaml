@@ -86,6 +86,9 @@ nodeSelector: {}
 tolerations: []
 affinity: {}
 
+rollouts:
+  autoPromotionEnabled: false
+
 configmap:
   properties:
     PROFILE_ACTIVE: ""

@@ -90,4 +90,4 @@ spec:
     blueGreen:
       activeService: {{ include "team.fullname" . }}-active
       previewService: {{ include "team.fullname" . }}-preview
-      autoPromotionEnabled: false
+      autoPromotionEnabled: {{ .Values.rollouts.autoPromotionEnabled | default false }}
