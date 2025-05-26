@@ -20,7 +20,6 @@ spec:
       {{- end }}
       labels:
         {{- include "team.labels" . | nindent 8 }}
-        version: stable
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
