@@ -1,0 +1,14 @@
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: {{ .Values.rollouts.destinationRule.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  host: {{ include "team.fullname" . }}-stable.{{ .Release.Namespace }}.svc.cluster.local
+  subsets:
+    - name: {{ .Values.rollouts.destinationRule.stableSubsetName }}
+      labels:
+        rollouts-pod-template-hash: stable
+    - name: {{ .Values.rollouts.destinationRule.canarySubsetName }}
+      labels:
+        rollouts-pod-template-hash: canary

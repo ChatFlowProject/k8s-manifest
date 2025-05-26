@@ -87,7 +87,24 @@ tolerations: []
 affinity: {}
 
 rollouts:
-  autoPromotionEnabled: false
+  steps:
+    - setWeight: 10
+    - pause:
+        duration: 60s
+    - setWeight: 30
+    - pause:
+        duration: 120s
+    - setWeight: 100
+  virtualService:
+    name: chatflow-routing
+    routes:
+      - http.1  # "teams" 요청을 처리하는 VirtualService.http[*] 블록
+    # host: flowchat.shop
+    # gateway: istio-system/chatflow-gateway
+  destinationRule:
+    name: team-destinationrule
+    stableSubsetName: stable
+    canarySubsetName: canary
 
 configmap:
   properties:
