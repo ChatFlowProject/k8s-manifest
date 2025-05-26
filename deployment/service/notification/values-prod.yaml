@@ -1,5 +1,5 @@
 
-replicaCount: 2
+replicaCount: 1
 
 image:
   repository: chatflow/notification
@@ -11,8 +11,8 @@ resources:
     cpu: 200m
     memory: 300Mi
   limits:
-    cpu: 200m
-    memory: 300Mi
+    cpu: 300m
+    memory: 400Mi
 
 service:
   nodePort: 30003

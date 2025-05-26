@@ -45,8 +45,8 @@ ingress:
 
 resources:
   limits:
-    cpu: 200m # 100m = 0.1 CPU 코어
-    memory: 300Mi
+    cpu: 300m # 100m = 0.1 CPU 코어
+    memory: 400Mi
   requests:
     cpu: 200m
     memory: 300Mi
