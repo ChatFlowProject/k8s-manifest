@@ -100,3 +100,5 @@ spec:
             name: {{ include "team.fullname" . }}-destinationrule
             canarySubsetName: {{ .Values.rollouts.destinationRule.canarySubsetName }}
             stableSubsetName: {{ .Values.rollouts.destinationRule.stableSubsetName }}
+      stableService: {{ include "team.fullname" . }}-stable
+      canaryService: {{ include "team.fullname" . }}-canary

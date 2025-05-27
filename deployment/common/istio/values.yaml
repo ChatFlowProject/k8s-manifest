@@ -75,7 +75,7 @@ virtualService:
         - /v2/sign-up
         - /sign-in
       destination:
-        service: member
+        service: member-stable
         namespace: chatflow
         port: 8080
 
@@ -85,7 +85,7 @@ virtualService:
         - /v2/teams
         - /images
       destination:
-        service: team
+        service: team-stable
         namespace: chatflow
         port: 8080
 
@@ -93,7 +93,7 @@ virtualService:
       match:
         - /notifications
       destination:
-        service: notification
+        service: notification-stable
         namespace: chatflow
         port: 8080
 
@@ -102,7 +102,7 @@ virtualService:
         - /chat
         - /ws
       destination:
-        service: dialog
+        service: dialog-stable
         namespace: chatflow
         port: 8080
 
@@ -110,6 +110,6 @@ virtualService:
       match:
         - /
       destination:
-        service: frontend
+        service: frontend-stable
         namespace: chatflow
         port: 3000
