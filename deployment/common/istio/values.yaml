@@ -100,6 +100,7 @@ virtualService:
     - name: http.3
       match:
         - /chat
+        - /ws
       destination:
         service: dialog-stable
         namespace: chatflow
