@@ -88,10 +88,11 @@ affinity: {}
 
 rollouts:
   steps:
+    - pause: {}
     - setWeight: 0
     - pause: {}
     - setWeight: 10
-    - pause: # 수동 대기(무기한 정지) -> pause: {}
+    - pause:
         duration: 60s
     - setWeight: 30
     - pause:
@@ -123,4 +124,3 @@ secret:
     S3_ACCESS_KEY: ""
     S3_SECRET_KEY: ""
     S3_REGION: ""
-
