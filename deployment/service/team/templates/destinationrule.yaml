@@ -8,7 +8,7 @@ spec:
   subsets:
     - name: {{ .Values.rollouts.destinationRule.stableSubsetName }}
       labels:
-        rollouts-pod-template-hash: stable
+        {{- include "team.selectorLabels" . | nindent 8 }}
     - name: {{ .Values.rollouts.destinationRule.canarySubsetName }}
       labels:
-        rollouts-pod-template-hash: canary
+        {{- include "team.selectorLabels" . | nindent 8 }}

@@ -85,7 +85,7 @@ virtualService:
         - /v2/teams
         - /images
       destination:
-        service: team-stable
+        service: team
         namespace: chatflow
         port: 8080
 
