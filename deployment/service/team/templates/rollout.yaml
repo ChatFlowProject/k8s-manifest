@@ -97,7 +97,7 @@ spec:
             routes:
                 {{- toYaml .Values.rollouts.virtualService.routes | nindent 14 }}
           destinationRule:
-            name: {{ .Values.rollouts.destinationRule.name }}
+            name: {{ include "team.fullname" . }}-destinationrule
             canarySubsetName: {{ .Values.rollouts.destinationRule.canarySubsetName }}
             stableSubsetName: {{ .Values.rollouts.destinationRule.stableSubsetName }}
       stableService: {{ include "team.fullname" . }}-stable

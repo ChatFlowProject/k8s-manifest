@@ -1,16 +1,16 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
 metadata:
-  name: {{ include "dialog.fullname" . }}
+  name: {{ include "member.fullname" . }}
   labels:
-    {{- include "dialog.labels" . | nindent 4 }}
+    {{- include "member.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "dialog.selectorLabels" . | nindent 6 }}
+      {{- include "member.selectorLabels" . | nindent 6 }}
   revisionHistoryLimit: 3
   template:
     metadata:
@@ -19,7 +19,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "dialog.labels" . | nindent 8 }}
+        {{- include "member.labels" . | nindent 8 }}
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -28,7 +28,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "dialog.serviceAccountName" . }}
+      serviceAccountName: {{ include "member.serviceAccountName" . }}
       {{- with .Values.podSecurityContext }}
       securityContext:
         {{- toYaml . | nindent 8 }}
@@ -47,9 +47,9 @@ spec:
               protocol: TCP
           envFrom:
             - configMapRef:
-                name: {{ include "dialog.fullname" . }}-properties
+                name: {{ include "member.fullname" . }}-properties
             - secretRef:
-                name: {{ include "dialog.fullname" . }}-cred
+                name: {{ include "member.fullname" . }}-cred
           {{- with .Values.startupProbe }}
           startupProbe:
             {{- toYaml . | nindent 12 }}
@@ -86,3 +86,19 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  strategy:
+    canary:
+      steps:
+          {{- toYaml .Values.rollouts.steps | nindent 8 }}
+      trafficRouting:
+        istio:
+          virtualService:
+            name: {{ .Values.rollouts.virtualService.name }}
+            routes:
+                {{- toYaml .Values.rollouts.virtualService.routes | nindent 14 }}
+          destinationRule:
+            name: {{ include "member.fullname" . }}-destinationrule
+            canarySubsetName: {{ .Values.rollouts.destinationRule.canarySubsetName }}
+            stableSubsetName: {{ .Values.rollouts.destinationRule.stableSubsetName }}
+      stableService: {{ include "member.fullname" . }}-stable
+      canaryService: {{ include "member.fullname" . }}-canary

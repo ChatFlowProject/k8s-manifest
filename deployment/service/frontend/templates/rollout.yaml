@@ -1,16 +1,17 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
 metadata:
-  name: {{ include "notification.fullname" . }}
+  name: {{ include "frontend.fullname" . }}
   labels:
-    {{- include "notification.labels" . | nindent 4 }}
+    {{- include "frontend.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "notification.selectorLabels" . | nindent 6 }}
+      {{- include "frontend.selectorLabels" . | nindent 6 }}
+  revisionHistoryLimit: 3
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,16 +19,17 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "notification.labels" . | nindent 8 }}
+        {{- include "frontend.labels" . | nindent 8 }}
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
+      terminationGracePeriodSeconds: 10
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "notification.serviceAccountName" . }}
+      serviceAccountName: {{ include "frontend.serviceAccountName" . }}
       {{- with .Values.podSecurityContext }}
       securityContext:
         {{- toYaml . | nindent 8 }}
@@ -76,3 +78,19 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  strategy:
+    canary:
+      steps:
+          {{- toYaml .Values.rollouts.steps | nindent 8 }}
+      trafficRouting:
+        istio:
+          virtualService:
+            name: {{ .Values.rollouts.virtualService.name }}
+            routes:
+                {{- toYaml .Values.rollouts.virtualService.routes | nindent 14 }}
+          destinationRule:
+            name: {{ include "frontend.fullname" . }}-destinationrule
+            canarySubsetName: {{ .Values.rollouts.destinationRule.canarySubsetName }}
+            stableSubsetName: {{ .Values.rollouts.destinationRule.stableSubsetName }}
+      stableService: {{ include "frontend.fullname" . }}-stable
+      canaryService: {{ include "frontend.fullname" . }}-canary

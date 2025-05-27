@@ -88,8 +88,11 @@ affinity: {}
 
 rollouts:
   steps:
-    - setWeight: 10
+    - setWeight: 0
     - pause:
+        duration: 180s
+    - setWeight: 10
+    - pause: # 수동 대기(무기한 정지) -> pause: {}
         duration: 60s
     - setWeight: 30
     - pause:
@@ -98,11 +101,10 @@ rollouts:
   virtualService:
     name: chatflow-routing
     routes:
-      - http.1  # "teams" 요청을 처리하는 VirtualService.http[*] 블록
+      - http.1  # VirtualService.http[*] 블록
     # host: flowchat.shop
     # gateway: istio-system/chatflow-gateway
   destinationRule:
-    name: team-destinationrule
     stableSubsetName: stable
     canarySubsetName: canary
 

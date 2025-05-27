@@ -1,10 +1,10 @@
 apiVersion: networking.istio.io/v1beta1
 kind: DestinationRule
 metadata:
-  name: {{ include "team.fullname" . }}-destinationrule
+  name: {{ include "member.fullname" . }}-destinationrule
   namespace: {{ .Release.Namespace }}
 spec:
-  host: {{ include "team.fullname" . }}-stable.{{ .Release.Namespace }}.svc.cluster.local
+  host: {{ include "member.fullname" . }}-stable.{{ .Release.Namespace }}.svc.cluster.local
   subsets:
     - name: {{ .Values.rollouts.destinationRule.stableSubsetName }}
       labels:

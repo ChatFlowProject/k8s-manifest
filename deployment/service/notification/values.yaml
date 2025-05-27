@@ -62,6 +62,26 @@ nodeSelector: {}
 tolerations: []
 affinity: {}
 
+rollouts:
+  steps:
+    - setWeight: 0
+    - pause:
+        duration: 180s
+    - setWeight: 10
+    - pause: # 수동 대기(무기한 정지) -> pause: {}
+        duration: 60s
+    - setWeight: 30
+    - pause:
+        duration: 120s
+    - setWeight: 100
+  virtualService:
+    name: chatflow-routing
+    routes:
+      - http.2  # VirtualService.http[*] 블록
+  destinationRule:
+    stableSubsetName: stable
+    canarySubsetName: canary
+
 configmap:
   properties:
     PROFILE_ACTIVE: ""
