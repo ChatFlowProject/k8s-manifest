@@ -1,0 +1,32 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: chatflow-routing-test
+  namespace: chatflow
+spec:
+  gateways:
+    {{- toYaml .Values.virtualService.gateways | nindent 4 }}
+  hosts:
+    {{- toYaml .Values.virtualService.hosts | nindent 4 }}
+  http:
+    {{- range .Values.virtualService.routes }}
+    - name: {{ .name }}
+      match:
+        {{- range .match }}
+        - uri:
+            prefix: {{ . | quote }}
+        {{- end }}
+      route:
+        - destination:
+            host: {{ .destination.service }}.{{ .destination.namespace }}.svc.cluster.local
+            port:
+              number: {{ .destination.port }}
+            subset: stable
+          weight: 100
+        - destination:
+            host: {{ .destination.service }}.{{ .destination.namespace }}.svc.cluster.local
+            port:
+              number: {{ .destination.port }}
+            subset: canary
+          weight: 0
+    {{- end }}

@@ -1,0 +1,114 @@
+replicaCount: 1
+
+image:
+  repository: nginx
+  pullPolicy: IfNotPresent
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  automount: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+podLabels: {}
+podSecurityContext: {}
+securityContext: {}
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+
+resources: {}
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: http
+readinessProbe:
+  httpGet:
+    path: /
+    port: http
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+
+volumes: []
+volumeMounts: []
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+
+virtualService:
+  gateways:
+    - istio-system/chatflow-gateway
+  hosts:
+    - flowchat.shop
+  routes:
+    - name: http.0
+      match:
+        - /members
+        - /v2/members
+        - /friendships
+        - /v2/friendships
+        - /sign-up
+        - /v2/sign-up
+        - /sign-in
+      destination:
+        service: member-stable
+        namespace: chatflow
+        port: 8080
+
+    - name: http.1
+      match:
+        - /teams
+        - /v2/teams
+        - /images
+      destination:
+        service: team-stable
+        namespace: chatflow
+        port: 8080
+
+    - name: http.2
+      match:
+        - /notifications
+      destination:
+        service: notification-stable
+        namespace: chatflow
+        port: 8080
+
+    - name: http.3
+      match:
+        - /chat
+      destination:
+        service: dialog-stable
+        namespace: chatflow
+        port: 8080
+
+    - name: http.4
+      match:
+        - /
+      destination:
+        service: frontend-stable
+        namespace: chatflow
+        port: 3000
