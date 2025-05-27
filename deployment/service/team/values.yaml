@@ -88,8 +88,8 @@ affinity: {}
 
 rollouts:
   steps:
-    - pause: {}
-    - setWeight: 0
+    - setCanaryScale:
+        replicas: 1
     - pause: {}
     - setWeight: 10
     - pause:
