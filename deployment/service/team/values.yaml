@@ -89,7 +89,7 @@ affinity: {}
 rollouts:
   steps:
     - setCanaryScale:
-        replicas: 1
+        replicas: 2
     - pause: {}
     - setWeight: 10
     - pause:
@@ -102,8 +102,6 @@ rollouts:
     name: chatflow-routing
     routes:
       - http.1  # VirtualService.http[*] 블록
-    # host: flowchat.shop
-    # gateway: istio-system/chatflow-gateway
   destinationRule:
     stableSubsetName: stable
     canarySubsetName: canary

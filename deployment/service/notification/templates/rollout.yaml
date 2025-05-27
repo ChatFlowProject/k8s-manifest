@@ -90,5 +90,3 @@ spec:
             name: {{ include "notification.fullname" . }}-destinationrule
             canarySubsetName: {{ .Values.rollouts.destinationRule.canarySubsetName }}
             stableSubsetName: {{ .Values.rollouts.destinationRule.stableSubsetName }}
-      stableService: {{ include "notification.fullname" . }}-stable
-      canaryService: {{ include "notification.fullname" . }}-canary

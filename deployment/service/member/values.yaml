@@ -88,11 +88,11 @@ affinity: {}
 
 rollouts:
   steps:
-    - setWeight: 0
-    - pause:
-        duration: 180s
+    - setCanaryScale:
+        replicas: 1
+    - pause: {}
     - setWeight: 10
-    - pause: # 수동 대기(무기한 정지) -> pause: {}
+    - pause:
         duration: 60s
     - setWeight: 30
     - pause:

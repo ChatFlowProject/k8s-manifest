@@ -4,11 +4,11 @@ metadata:
   name: {{ include "member.fullname" . }}-destinationrule
   namespace: {{ .Release.Namespace }}
 spec:
-  host: {{ include "member.fullname" . }}-stable.{{ .Release.Namespace }}.svc.cluster.local
+  host: {{ include "member.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local
   subsets:
     - name: {{ .Values.rollouts.destinationRule.stableSubsetName }}
       labels:
-        rollouts-pod-template-hash: stable
+        {{- include "member.selectorLabels" . | nindent 8 }}
     - name: {{ .Values.rollouts.destinationRule.canarySubsetName }}
       labels:
-        rollouts-pod-template-hash: canary
+        {{- include "member.selectorLabels" . | nindent 8 }}

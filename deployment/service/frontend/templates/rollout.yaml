@@ -92,5 +92,3 @@ spec:
             name: {{ include "frontend.fullname" . }}-destinationrule
             canarySubsetName: {{ .Values.rollouts.destinationRule.canarySubsetName }}
             stableSubsetName: {{ .Values.rollouts.destinationRule.stableSubsetName }}
-      stableService: {{ include "frontend.fullname" . }}-stable
-      canaryService: {{ include "frontend.fullname" . }}-canary

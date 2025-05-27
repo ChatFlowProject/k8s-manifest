@@ -100,5 +100,3 @@ spec:
             name: {{ include "dialog.fullname" . }}-destinationrule
             canarySubsetName: {{ .Values.rollouts.destinationRule.canarySubsetName }}
             stableSubsetName: {{ .Values.rollouts.destinationRule.stableSubsetName }}
-      stableService: {{ include "dialog.fullname" . }}-stable
-      canaryService: {{ include "dialog.fullname" . }}-canary
