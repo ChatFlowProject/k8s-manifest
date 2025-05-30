@@ -16,6 +16,12 @@ spec:
         - uri:
             prefix: {{ . | quote }}
         {{- end }}
+
+      {{- if .rewrite }}
+      rewrite:
+        uri: {{ .rewrite.uri | quote }}
+      {{- end }}
+
       route:
         - destination:
             host: {{ .destination.service }}.{{ .destination.namespace }}.svc.cluster.local
