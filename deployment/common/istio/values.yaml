@@ -79,15 +79,15 @@ virtualService:
         namespace: chatflow
         port: 8080
 
-    - name: http.0.root
-      match:
-        - /member
-      rewrite:
-        uri: /
-      destination:
-        service: member
-        namespace: chatflow
-        port: 8080
+#    - name: http.0.root
+#      match:
+#        - /member
+#      rewrite:
+#        uri: /
+#      destination:
+#        service: member
+#        namespace: chatflow
+#        port: 8080
 
     - name: http.1
       match:
