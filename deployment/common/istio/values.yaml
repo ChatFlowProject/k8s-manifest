@@ -110,6 +110,7 @@ virtualService:
     - name: http.3
       match:
         - /chat
+        - /dialog
         - /ws
       destination:
         service: dialog
