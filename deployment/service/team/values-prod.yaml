@@ -21,3 +21,4 @@ configmap:
   properties:
     PROFILE_ACTIVE: prod
     CHATFLOW_HTTP_URL: http://flowchat.shop:30100
+    CHATFLOW_HTTPS_URL: https://flowchat.shop:30200

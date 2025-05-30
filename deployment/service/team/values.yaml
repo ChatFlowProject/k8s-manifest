@@ -110,6 +110,7 @@ configmap:
   properties:
     PROFILE_ACTIVE: ""
     CHATFLOW_HTTP_URL: ""
+    CHATFLOW_HTTPS_URL: ""
     # VERSION: ""
 
 secret:
