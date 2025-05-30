@@ -60,8 +60,7 @@ rollouts:
   steps:
     - setCanaryScale:
         replicas: 1
-    - pause:
-        duration: 30s
+    - pause: {}
     - setWeight: 10
     - pause:
         duration: 60s
