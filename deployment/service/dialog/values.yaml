@@ -101,7 +101,9 @@ rollouts:
 configmap:
   properties:
     PROFILE_ACTIVE: ""
-    MEMBER_SERVICE_URL: ""
+    CHATFLOW_HTTP_URL: ""
+    CHATFLOW_HTTPS_URL: ""
+    # VERSION: ""
 
 secret:
   datasource:
