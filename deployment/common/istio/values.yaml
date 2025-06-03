@@ -68,11 +68,8 @@ virtualService:
     - name: http.0
       match:
         - /members
-        - /v2/members
         - /friendships
-        - /v2/friendships
         - /sign-up
-        - /v2/sign-up
         - /sign-in
       destination:
         service: member
@@ -93,6 +90,7 @@ virtualService:
       match:
         - /teams
         - /v2/teams
+        - /channels
         - /images
       destination:
         service: team
