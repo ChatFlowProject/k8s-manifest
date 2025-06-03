@@ -112,6 +112,7 @@ virtualService:
         - /chat
         - /dialog
         - /ws
+        - /message
       destination:
         service: dialog
         namespace: chatflow
