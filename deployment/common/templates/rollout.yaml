@@ -25,7 +25,7 @@ spec:
             - configMapRef:
                 name: {{ include "common.fullname" . }}-properties
             - secretRef:
-                name: {{ include "common.fullname" . }}}-cred
+                name: {{ include "common.fullname" . }}-cred
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
