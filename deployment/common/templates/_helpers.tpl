@@ -38,6 +38,7 @@ helm.sh/chart: {{ include "common.chart" . }}
 {{ include "common.selectorLabels" . }}
 app.kubernetes.io/version: {{ default .Chart.AppVersion .Values.appVersionOverride | quote }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
+app.kubernetes.io/component: {{ default .Chart.Type .Values.podLabels.component | quote }}
 {{- end }}
 
 {{/*

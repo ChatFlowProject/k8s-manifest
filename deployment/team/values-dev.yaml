@@ -1,22 +1,20 @@
+common:
+  fullnameOverride: "team-dev"
 
-replicaCount: 1
+  configmap:
+    properties:
+      PROFILE_ACTIVE: dev
 
-image:
-  repository: chatflow/team
-  pullPolicy: IfNotPresent
-  tag: 0.0.1
-
-resources:
-  limits:
-    cpu: 250m
-    memory: 500Mi
-  requests:
-    cpu: 150m
-    memory: 300Mi
-
-service:
-  nodePort: 31003
-
-configmap:
-  properties:
-    PROFILE_ACTIVE: dev
+  rollout:
+    replicaCount: 1
+    image:
+      repository: chatflow/team
+      pullPolicy: IfNotPresent
+      tag: 1.0.0
+    resources:
+      limits:
+        cpu: 250m
+        memory: 500Mi
+      requests:
+        cpu: 150m
+        memory: 300Mi

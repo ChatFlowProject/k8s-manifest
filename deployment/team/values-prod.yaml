@@ -1,24 +1,22 @@
+common:
+  fullnameOverride: "team-prod"
 
-replicaCount: 2
+  configmap:
+    properties:
+      PROFILE_ACTIVE: prod
+      CHATFLOW_HTTP_URL: http://flowchat.shop:30100
+      CHATFLOW_HTTPS_URL: https://flowchat.shop:30200
 
-image:
-  repository: chatflow/team
-  pullPolicy: IfNotPresent
-  tag: 0.0.1
-
-resources:
-  requests:
-    cpu: 200m
-    memory: 300Mi
-  limits:
-    cpu: 300m
-    memory: 400Mi
-
-service:
-  nodePort: 30003
-
-configmap:
-  properties:
-    PROFILE_ACTIVE: prod
-    CHATFLOW_HTTP_URL: http://flowchat.shop:30100
-    CHATFLOW_HTTPS_URL: https://flowchat.shop:30200
+  rollout:
+    replicaCount: 2
+    image:
+      repository: chatflow/team
+      pullPolicy: IfNotPresent
+      tag: 1.0.0
+    resources:
+      requests:
+        cpu: 200m
+        memory: 300Mi
+      limits:
+        cpu: 300m
+        memory: 400Mi

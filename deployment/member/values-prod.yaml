@@ -1,23 +1,22 @@
 common:
   fullnameOverride: "member-prod"
 
-  replicaCount: 1
-
-  image:
-    repository: chatflow/member
-    pullPolicy: IfNotPresent
-    tag: 1.0.0
-
-  resources:
-    requests:
-      cpu: 200m
-      memory: 300Mi
-    limits:
-      cpu: 300m
-      memory: 400Mi
-
   configmap:
     properties:
       PROFILE_ACTIVE: prod
       CHATFLOW_HTTP_URL: http://flowchat.shop:30100
       CHATFLOW_HTTPS_URL: https://flowchat.shop:30200
+
+  rollout:
+    replicaCount: 1
+    image:
+      repository: chatflow/member
+      pullPolicy: IfNotPresent
+      tag: 1.0.0
+    resources:
+      requests:
+        cpu: 200m
+        memory: 300Mi
+      limits:
+        cpu: 300m
+        memory: 400Mi

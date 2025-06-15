@@ -1,77 +1,61 @@
-
-replicaCount: 1
-
-image:
-  repository: chatflow/fe
-  pullPolicy: IfNotPresent
-  tag: "1.0.0"
-
-imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
-
 serviceAccount:
   create: false
   automount: true
   annotations: {}
   name: ""
 
-podAnnotations: {}
-podLabels: {}
+common:
+  nameOverride: "fe"
+  fullnameOverride: "fe-default"
+  appVersionOverride: "1.0.0"
 
-podSecurityContext: {}
-securityContext: {}
+  podLabels:
+    component: frontend
 
-service:
-  type: NodePort
-  port: 3000
-  nodePort: 30001
-
-ingress:
-  enabled: false
-  className: ""
-  annotations: {}
-  hosts:
-    - host: chart-example.local
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-  tls: []
-
-resources:
-  limits:
-    cpu: 250m
-    memory: 400Mi
-  requests:
-    cpu: 150m
-    memory: 300Mi
-
-autoscaling:
-  enabled: false
-  minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
-
-nodeSelector: {}
-tolerations: []
-affinity: {}
-
-rollouts:
-  steps:
-    - setCanaryScale:
-        replicas: 1
-    - pause: {}
-    - setWeight: 10
-    - pause:
-        duration: 60s
-    - setWeight: 30
-    - pause:
-        duration: 120s
-    - setWeight: 100
   virtualService:
-    name: chatflow-routing
     routes:
       - http.4  # VirtualService.http[*] 블록
+
   destinationRule:
+    enabled: true
     stableSubsetName: stable
     canarySubsetName: canary
+
+  service:
+    enabled: true
+    port: 3000
+
+  configmap:
+    enabled: false
+
+  secret:
+    enabled: false
+
+  rollout:
+    enabled: true
+    replicaCount: 1
+    image:
+      repository: chatflow/fe
+      pullPolicy: IfNotPresent
+      tag: ""
+    resources:
+      limits:
+        cpu: 300m # 100m = 0.1 CPU 코어
+        memory: 400Mi
+      requests:
+        cpu: 200m
+        memory: 300Mi
+    canary:
+      steps:
+        - setCanaryScale:
+            replicas: 1
+#        - pause: { }
+        - setWeight: 10
+        - pause:
+            duration: 60s
+        - setWeight: 30
+        - pause:
+            duration: 120s
+        - setWeight: 100

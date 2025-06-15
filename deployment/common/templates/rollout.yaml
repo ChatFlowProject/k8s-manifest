@@ -1,3 +1,4 @@
+{{- if .Values.rollout.enabled }}
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
@@ -5,8 +6,8 @@ metadata:
   labels:
     {{- include "common.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.replicaCount }}
-  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  replicas: {{ .Values.rollout.replicaCount }}
+  revisionHistoryLimit: {{ .Values.rollout.revisionHistoryLimit }}
   selector:
     matchLabels:
       {{- include "common.selectorLabels" . | nindent 6 }}
@@ -26,27 +27,28 @@ spec:
                 name: {{ include "common.fullname" . }}-properties
             - secretRef:
                 name: {{ include "common.fullname" . }}-cred
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .Values.rollout.image.repository }}:{{ .Values.rollout.image.tag }}"
+          imagePullPolicy: {{ .Values.rollout.image.pullPolicy }}
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
-          {{- with .Values.resources }}
+          {{- with .Values.rollout.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}
   strategy:
     canary:
       steps:
-        {{- toYaml .Values.rollouts.steps | nindent 8 }}
+        {{- toYaml .Values.rollout.canary.steps | nindent 8 }}
       trafficRouting:
         istio:
           virtualService:
-            name: {{ .Values.rollouts.virtualService.name }}
+            name: {{ .Release.Namespace }}-routing
             routes:
-              {{- toYaml .Values.rollouts.virtualService.routes | nindent 14 }}
+              {{- toYaml .Values.virtualService.routes | nindent 14 }}
           destinationRule:
             name: {{ include "common.fullname" . }}-destinationrule
-            canarySubsetName: {{ .Values.rollouts.destinationRule.canarySubsetName }}
-            stableSubsetName: {{ .Values.rollouts.destinationRule.stableSubsetName }}
+            canarySubsetName: {{ .Values.destinationRule.canarySubsetName }}
+            stableSubsetName: {{ .Values.destinationRule.stableSubsetName }}
+{{- end }}

@@ -1,3 +1,4 @@
+{{- if .Values.destinationRule.enabled }}
 apiVersion: networking.istio.io/v1beta1
 kind: DestinationRule
 metadata:
@@ -6,9 +7,10 @@ metadata:
 spec:
   host: {{ include "common.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local
   subsets:
-    - name: {{ .Values.rollouts.destinationRule.stableSubsetName }}
+    - name: {{ .Values.destinationRule.stableSubsetName }}
       labels:
         {{- include "common.selectorLabels" . | nindent 8 }}
-    - name: {{ .Values.rollouts.destinationRule.canarySubsetName }}
+    - name: {{ .Values.destinationRule.canarySubsetName }}
       labels:
         {{- include "common.selectorLabels" . | nindent 8 }}
+{{- end }}
