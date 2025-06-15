@@ -1,0 +1,53 @@
+nameOverride: ""
+fullnameOverride: ""
+appVersionOverride: ""
+
+replicaCount: 1
+
+serviceAccount:
+  create: false
+  automount: true
+  annotations: {}
+  name: ""
+
+podLabels: {}
+
+revisionHistoryLimit: 3
+
+image:
+  repository: chatflow/common
+  pullPolicy: IfNotPresent
+  tag: "1.0.0"
+
+service:
+  port: 8080
+
+resources:
+  requests:
+    cpu: 200m
+    memory: 300Mi
+  limits:
+    cpu: 300m
+    memory: 400Mi
+
+configmap:
+  properties:
+    PROFILE_ACTIVE: ""
+    CHATFLOW_HTTP_URL: ""
+    CHATFLOW_HTTPS_URL: ""
+    # VERSION: ""
+
+secret:
+  datasource: {}
+  awsS3Config: {}
+  jwt:
+    JWT_SECRET_KEY: "user_token_for_signature_must_be_at_least_256_bits_in_HMAC_signature_algorithms"
+
+rollouts:
+  steps: []
+  virtualService:
+    name: chatflow-routing
+    routes: []
+  destinationRule:
+    stableSubsetName: stable
+    canarySubsetName: canary

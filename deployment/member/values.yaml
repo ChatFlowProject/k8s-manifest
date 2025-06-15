@@ -1,0 +1,64 @@
+nameOverride: ""
+fullnameOverride: ""
+serviceAccount:
+  create: false
+  automount: true
+  annotations: {}
+  name: ""
+
+common:
+  nameOverride: "member"
+  fullnameOverride: "member-default"
+  appVersionOverride: "1.0.0"
+
+  replicaCount: 2
+
+  image:
+    repository: chatflow/member
+    pullPolicy: IfNotPresent
+    tag: ""
+
+  service:
+    port: 8080
+
+  resources:
+    limits:
+      cpu: 300m # 100m = 0.1 CPU 코어
+      memory: 400Mi
+    requests:
+      cpu: 200m
+      memory: 300Mi
+
+  configmap:
+    properties:
+      PROFILE_ACTIVE: ""
+      CHATFLOW_HTTP_URL: ""
+      CHATFLOW_HTTPS_URL: ""
+      # VERSION: ""
+
+  secret:
+    datasource:
+      DB_DRIVER_CLASS_NAME: "com.mysql.cj.jdbc.Driver"
+      DB_URL: "jdbc:mysql://43.203.119.187:3306/chatflow_member?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8"
+      DB_USERNAME: "snowball"
+      DB_PASSWORD: "1234"
+
+  rollouts:
+    steps:
+      - setCanaryScale:
+          replicas: 1
+      - pause: { }
+      - setWeight: 10
+      - pause:
+          duration: 60s
+      - setWeight: 30
+      - pause:
+          duration: 120s
+      - setWeight: 100
+    virtualService:
+      name: chatflow-routing
+      routes:
+        - http.0  # VirtualService.http[*] 블록
+    destinationRule:
+      stableSubsetName: stable
+      canarySubsetName: canary

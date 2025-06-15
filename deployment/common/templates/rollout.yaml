@@ -1,0 +1,52 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: {{ include "common.fullname" . }}
+  labels:
+    {{- include "common.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  selector:
+    matchLabels:
+      {{- include "common.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "common.labels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      serviceAccountName: {{ include "common.serviceAccountName" . }}
+      containers:
+        - name: {{ .Chart.Name }}
+          envFrom:
+            - configMapRef:
+                name: {{ include "common.fullname" . }}-properties
+            - secretRef:
+                name: {{ include "common.fullname" . }}}-cred
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          {{- with .Values.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+  strategy:
+    canary:
+      steps:
+        {{- toYaml .Values.rollouts.steps | nindent 8 }}
+      trafficRouting:
+        istio:
+          virtualService:
+            name: {{ .Values.rollouts.virtualService.name }}
+            routes:
+              {{- toYaml .Values.rollouts.virtualService.routes | nindent 14 }}
+          destinationRule:
+            name: {{ include "common.fullname" . }}-destinationrule
+            canarySubsetName: {{ .Values.rollouts.destinationRule.canarySubsetName }}
+            stableSubsetName: {{ .Values.rollouts.destinationRule.stableSubsetName }}

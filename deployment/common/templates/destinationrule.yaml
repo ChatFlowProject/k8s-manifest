@@ -1,14 +1,14 @@
 apiVersion: networking.istio.io/v1beta1
 kind: DestinationRule
 metadata:
-  name: {{ include "member.fullname" . }}-destinationrule
+  name: {{ include "common.fullname" . }}-destinationrule
   namespace: {{ .Release.Namespace }}
 spec:
-  host: {{ include "member.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local
+  host: {{ include "common.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local
   subsets:
     - name: {{ .Values.rollouts.destinationRule.stableSubsetName }}
       labels:
-        {{- include "member.selectorLabels" . | nindent 8 }}
+        {{- include "common.selectorLabels" . | nindent 8 }}
     - name: {{ .Values.rollouts.destinationRule.canarySubsetName }}
       labels:
-        {{- include "member.selectorLabels" . | nindent 8 }}
+        {{- include "common.selectorLabels" . | nindent 8 }}

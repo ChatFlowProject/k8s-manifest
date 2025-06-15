@@ -2,7 +2,7 @@
 replicaCount: 2
 
 image:
-  repository: chatflow/member
+  repository: chatflow/team
   pullPolicy: IfNotPresent
   tag: ""
 
@@ -25,7 +25,7 @@ securityContext: {}
 service:
   type: NodePort
   port: 8080
-  nodePort: 30002
+  nodePort: 30003
 
 ingress:
   enabled: false
@@ -89,7 +89,7 @@ affinity: {}
 rollouts:
   steps:
     - setCanaryScale:
-        replicas: 1
+        replicas: 2
     - pause: {}
     - setWeight: 10
     - pause:
@@ -101,7 +101,7 @@ rollouts:
   virtualService:
     name: chatflow-routing
     routes:
-      - http.0  # VirtualService.http[*] 블록
+      - http.1  # VirtualService.http[*] 블록
   destinationRule:
     stableSubsetName: stable
     canarySubsetName: canary
@@ -116,6 +116,14 @@ configmap:
 secret:
   datasource:
     DB_DRIVER_CLASS_NAME: "com.mysql.cj.jdbc.Driver"
-    DB_URL: "jdbc:mysql://43.203.119.187:3306/chatflow_member?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8"
+    DB_URL: "jdbc:mysql://43.203.119.187:3306/chatflow_team?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8"
     DB_USERNAME: "snowball"
     DB_PASSWORD: "1234"
+  awsS3Config:
+    S3_BUCKET_NAME: ""
+    S3_ACCESS_KEY: ""
+    S3_SECRET_KEY: ""
+    S3_REGION: ""
+  jwt:
+    JWT_SECRET_KEY: "user_token_for_signature_must_be_at_least_256_bits_in_HMAC_signature_algorithms"
+
