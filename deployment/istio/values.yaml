@@ -72,7 +72,7 @@ virtualService:
         - /sign-up
         - /sign-in
       destination:
-        service: member
+        service: member-prod
         namespace: chatflow
         port: 8080
 
