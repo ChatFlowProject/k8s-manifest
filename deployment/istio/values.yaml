@@ -93,7 +93,7 @@ virtualService:
         - /channels
         - /images
       destination:
-        service: team
+        service: team-prod
         namespace: chatflow
         port: 8080
 
@@ -101,7 +101,7 @@ virtualService:
       match:
         - /notifications
       destination:
-        service: notification
+        service: notification-prod
         namespace: chatflow
         port: 8080
 
@@ -112,7 +112,7 @@ virtualService:
         - /ws
         - /message
       destination:
-        service: dialog
+        service: dialog-prod
         namespace: chatflow
         port: 8080
 
@@ -120,6 +120,6 @@ virtualService:
       match:
         - /
       destination:
-        service: frontend
+        service: frontend-prod
         namespace: chatflow
         port: 3000
