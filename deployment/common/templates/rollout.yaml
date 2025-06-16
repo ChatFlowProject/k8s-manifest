@@ -23,10 +23,14 @@ spec:
       containers:
         - name: {{ .Chart.Name }}
           envFrom:
+            {{- if .Values.configmap.enabled }}
             - configMapRef:
                 name: {{ include "common.fullname" . }}-properties
+            {{- end }}
+            {{- if .Values.secret.enabled }}
             - secretRef:
                 name: {{ include "common.fullname" . }}-cred
+            {{- end }}
           image: "{{ .Values.rollout.image.repository }}:{{ .Values.rollout.image.tag }}"
           imagePullPolicy: {{ .Values.rollout.image.pullPolicy }}
           ports:
