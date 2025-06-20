@@ -120,6 +120,6 @@ virtualService:
       match:
         - /
       destination:
-        service: frontend-prod
+        service: fe-prod
         namespace: chatflow
         port: 3000
