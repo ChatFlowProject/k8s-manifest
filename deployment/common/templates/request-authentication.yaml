@@ -1,0 +1,25 @@
+{{- if .Values.requestAuthentication.enabled }}
+apiVersion: security.istio.io/v1beta1
+kind: RequestAuthentication
+metadata:
+  name: {{ include "common.fullname" . }}-authentication
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "common.selectorLabels" . | nindent 6 }}
+  jwtRules:
+    - issuer: "jerry0339" # iss 필드 값
+      # audiences:
+      #  - "admin"        # aud 필드(token 대상) 값
+      jwks: |
+        {
+          "keys": [
+            {
+              "kty": "oct",
+              "k": "dXNlcl90b2tlbl9mb3Jfc2lnbmF0dXJlX211c3RfYmVfYXRfbGVhc3RfMjU2X2JpdHNfaW5fSE1BQ19zaWduYXR1cmVfYWxnb3JpdGhtcw==",
+              "alg": "HS256"
+            }
+          ]
+        }
+{{- end }}

@@ -11,6 +11,12 @@ serviceAccount:
 podLabels:
   component: ""
 
+authorizationPolicy:
+  enabled: false
+
+requestAuthentication:
+  enabled: false
+
 virtualService:
   routes: []
 
