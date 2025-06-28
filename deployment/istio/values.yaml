@@ -99,7 +99,8 @@ virtualService:
 
     - name: http.2
       match:
-        - /notifications
+        - /noti
+        - /sse
       destination:
         service: notification-prod
         namespace: chatflow
