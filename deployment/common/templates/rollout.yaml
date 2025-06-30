@@ -21,7 +21,7 @@ spec:
     spec:
       serviceAccountName: {{ include "common.serviceAccountName" . }}
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ include "common.name" . }}
           envFrom:
             {{- if .Values.configmap.enabled }}
             - configMapRef:

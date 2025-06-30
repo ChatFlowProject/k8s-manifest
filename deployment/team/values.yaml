@@ -18,6 +18,18 @@ common:
     routes:
       - http.1  # VirtualService.http[*] 블록
 
+  requestAuthentication:
+    enabled: true
+
+  authorizationPolicy:
+    secured:
+      enabled: true
+      defaultAllow:
+        enabled: true
+        roles: [ "MEMBER", "ADMIN" ]
+    public:
+      enabled: true
+
   destinationRule:
     enabled: true
     stableSubsetName: stable

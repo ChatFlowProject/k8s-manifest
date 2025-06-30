@@ -12,13 +12,15 @@ spec:
     - issuer: "jerry0339" # iss 필드 값
       # audiences:
       #  - "admin"        # aud 필드(token 대상) 값
+      # 아래의 kid는 토큰 claim에 추가해 주어야 함 (secret key의 ID에 해당, secret key 변경시 함께 변경)
       jwks: |
         {
           "keys": [
             {
               "kty": "oct",
-              "k": "dXNlcl90b2tlbl9mb3Jfc2lnbmF0dXJlX211c3RfYmVfYXRfbGVhc3RfMjU2X2JpdHNfaW5fSE1BQ19zaWduYXR1cmVfYWxnb3JpdGhtcw==",
-              "alg": "HS256"
+              "kid": "v1",
+              "alg": "HS512",
+              "k": "dXNlcl90b2tlbl9mb3Jfc2lnbmF0dXJlX211c3RfYmVfYXRfbGVhc3RfMjU2X2JpdHNfaW5fSE1BQ19zaWduYXR1cmVfYWxnb3JpdGhtcw=="
             }
           ]
         }
