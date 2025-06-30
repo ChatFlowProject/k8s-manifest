@@ -18,12 +18,10 @@ spec:
               - {{ . | quote }}
               {{- end }}
     {{- end }}
-    {{- if .Values.authorizationPolicy.public.allowRegexPaths }}
+    {{- range .Values.authorizationPolicy.public.allowRegexPaths | default list }}
     - to:
-        {{- range .Values.authorizationPolicy.public.allowRegexPaths }}
         - operation:
             path:
               regex: {{ . | quote }}
-        {{- end }}
     {{- end }}
 {{- end }}
