@@ -17,6 +17,6 @@ spec:
               - {{ . | quote }}
               {{- end }}
               {{- range .Values.authorizationPolicy.public.allowCommonPaths | default list }}
-              - {{ printf "/%s%s" $.Chart.Name . | quote }}
+              - {{ printf "/%s%s" (include "common.name" .) . | quote }}
               {{- end }}
 {{- end }}
