@@ -38,10 +38,8 @@ common:
         - /sign-up
         - /sign-in
         - /members/swagger
-        - /members/swagger-ui.html
-      allowRegexPaths:
-        - /members/v3/api-docs/.*
-        - /members/swagger-ui/.*
+        - /members/swagger-ui/
+        - /members/v3/api-docs/
 
   destinationRule:
     enabled: true

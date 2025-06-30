@@ -21,7 +21,6 @@ authorizationPolicy:
   public:
     enabled: false
     allowPaths: []
-    allowRegexPaths: []
 
 requestAuthentication:
   enabled: false

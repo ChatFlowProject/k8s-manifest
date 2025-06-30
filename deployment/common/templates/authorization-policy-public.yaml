@@ -18,10 +18,4 @@ spec:
               - {{ . | quote }}
               {{- end }}
     {{- end }}
-    {{- range .Values.authorizationPolicy.public.allowRegexPaths | default list }}
-    - to:
-        - operation:
-            path:
-              regex: {{ . | quote }}
-    {{- end }}
 {{- end }}
