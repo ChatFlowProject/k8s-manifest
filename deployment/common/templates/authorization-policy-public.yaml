@@ -10,10 +10,20 @@ spec:
       {{- include "common.selectorLabels" . | nindent 6 }}
   action: ALLOW
   rules:
+    {{- if .Values.authorizationPolicy.public.allowPaths }}
     - to:
         - operation:
             paths:
               {{- range .Values.authorizationPolicy.public.allowPaths }}
               - {{ . | quote }}
               {{- end }}
+    {{- end }}
+    {{- if .Values.authorizationPolicy.public.allowRegexPaths }}
+    - to:
+        {{- range .Values.authorizationPolicy.public.allowRegexPaths }}
+        - operation:
+            path:
+              regex: {{ . | quote }}
+        {{- end }}
+    {{- end }}
 {{- end }}
