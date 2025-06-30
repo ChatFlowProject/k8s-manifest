@@ -14,7 +14,7 @@ spec:
     - to:
         - operation:
             paths:
-              {{- range .Values.authorizationPolicy.public.allowPaths }}
+              {{- range .Values.authorizationPolicy.public.allowPaths | default list }}
               - {{ . | quote }}
               {{- end }}
     {{- end }}
