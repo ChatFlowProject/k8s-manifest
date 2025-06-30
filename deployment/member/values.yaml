@@ -18,11 +18,29 @@ common:
     routes:
       - http.0  # VirtualService.http[*] 블록
 
-  authorizationPolicy:
-    enabled: true
-
   requestAuthentication:
     enabled: true
+
+  authorizationPolicy:
+    secured:
+      enabled: true
+      rules:
+        - paths: [ "/admins/*" ]
+          roles: [ "ADMIN" ]
+        - paths: [ "/members/*", "/friendships/*" ]
+          roles: [ "MEMBER" ]
+      defaultAllow:
+        enabled: true
+        roles: [ "MEMBER", "ADMIN" ]
+    public:
+      enabled: true
+      allowPaths:
+        - /sign-up
+        - /sign-in
+        - /members/swagger
+        - /members/v3/api-docs/*
+        - /members/swagger-ui/*
+        - /members/swagger-ui.html
 
   destinationRule:
     enabled: true

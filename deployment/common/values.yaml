@@ -12,7 +12,15 @@ podLabels:
   component: ""
 
 authorizationPolicy:
-  enabled: false
+  secured:
+    enabled: false
+    rules: []
+    defaultAllow:
+      enabled: false
+      roles: []
+  public:
+    enabled: false
+    allowPaths: []
 
 requestAuthentication:
   enabled: false

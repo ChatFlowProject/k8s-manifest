@@ -1,0 +1,19 @@
+{{- if .Values.authorizationPolicy.public.enabled }}
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: {{ include "common.fullname" . }}-authorization-public
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "common.selectorLabels" . | nindent 6 }}
+  action: ALLOW
+  rules:
+    - to:
+        - operation:
+            paths:
+              {{- range .Values.authorizationPolicy.public.allowPaths }}
+              - {{ . | quote }}
+              {{- end }}
+{{- end }}

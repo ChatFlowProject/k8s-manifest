@@ -1,0 +1,29 @@
+{{- if .Values.authorizationPolicy.secured.enabled }}
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: {{ include "common.fullname" . }}-authorization-secured
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "common.selectorLabels" . | nindent 6 }}
+  action: ALLOW
+  rules:
+    {{- range .Values.authorizationPolicy.secured.rules }}
+    - to: # 특정 경로에 대하여,
+        - operation:
+            paths: {{ toYaml .paths | nindent 12 }}
+      when: # 토큰의 특정 role만 허용
+        - key: request.auth.claims[role]
+          values: {{ toYaml .roles | nindent 12 }}
+    {{- end }}
+    {{- if .Values.authorizationPolicy.secured.defaultAllow.enabled }}
+    - from: # 위의 rule 외의 경로는 인증만 되어 있으면 허용, 해당 설정 빼면 위의 rule 외의 경로는 전부 차단됨
+        - source:
+            requestPrincipals: ["*"]
+      when:
+        - key: request.auth.claims[role]
+          values: {{ toYaml .Values.authorizationPolicy.secured.defaultAllow.roles | nindent 12 }}
+    {{- end }}
+{{- end }}
