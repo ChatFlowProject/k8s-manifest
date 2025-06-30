@@ -10,12 +10,13 @@ spec:
       {{- include "common.selectorLabels" . | nindent 6 }}
   action: ALLOW
   rules:
-    {{- if .Values.authorizationPolicy.public.allowPaths }}
     - to:
         - operation:
             paths:
               {{- range .Values.authorizationPolicy.public.allowPaths | default list }}
               - {{ . | quote }}
               {{- end }}
-    {{- end }}
+              {{- range .Values.authorizationPolicy.public.allowCommonPaths | default list }}
+              - {{ printf "/%s%s" $.Chart.Name . | quote }}
+              {{- end }}
 {{- end }}

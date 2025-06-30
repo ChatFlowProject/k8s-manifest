@@ -21,6 +21,12 @@ authorizationPolicy:
   public:
     enabled: false
     allowPaths: []
+    allowCommonPaths:
+      - /swagger
+      - /swagger-ui
+      - /swagger-ui/*
+      - /v3/api-docs
+      - /v3/api-docs/*
 
 requestAuthentication:
   enabled: false

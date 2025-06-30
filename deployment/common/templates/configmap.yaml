@@ -6,5 +6,6 @@ metadata:
   labels:
     {{- include "common.labels" . | nindent 4 }}
 data:
+  APP_NAME: {{ .Chart.Name | quote }}
   {{- toYaml .Values.configmap.properties | nindent 2 }}
 {{- end }}
