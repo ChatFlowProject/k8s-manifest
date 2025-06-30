@@ -67,6 +67,7 @@ virtualService:
   routes:
     - name: http.0
       match:
+        - /member
         - /members
         - /friendships
         - /sign-up
@@ -88,8 +89,8 @@ virtualService:
 
     - name: http.1
       match:
+        - /team
         - /teams
-        - /v2/teams
         - /channels
         - /images
       destination:
@@ -99,6 +100,7 @@ virtualService:
 
     - name: http.2
       match:
+        - /notification
         - /noti
         - /sse
       destination:
