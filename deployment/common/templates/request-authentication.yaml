@@ -9,7 +9,8 @@ spec:
     matchLabels:
       {{- include "common.selectorLabels" . | nindent 6 }}
   jwtRules:
-    - issuer: "jerry0339" # iss 필드 값
+    - forwardOriginalToken: true # false 설정시, Istio가 JWT 검증 후에 헤더에서 token 제거함
+      issuer: "jerry0339" # iss 필드 값
       # audiences:
       #  - "admin"        # aud 필드(token 대상) 값
       # 아래의 kid는 토큰 claim에 추가해 주어야 함 (secret key의 ID에 해당, secret key 변경시 함께 변경)

@@ -14,7 +14,7 @@ podLabels:
 authorizationPolicy:
   secured:
     enabled: false
-    rules: []
+    rules: [] # -paths: roles:
     defaultAllow:
       enabled: false
       roles: []
