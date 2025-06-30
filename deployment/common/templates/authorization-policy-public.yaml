@@ -16,7 +16,8 @@ spec:
               {{- range .Values.authorizationPolicy.public.allowPaths | default list }}
               - {{ . | quote }}
               {{- end }}
+              {{- $root := . }}
               {{- range .Values.authorizationPolicy.public.allowCommonPaths | default list }}
-              - {{ printf "/%s%s" (include "common.name" .) . | quote }}
+              - {{ printf "/%s%s" (include "common.name" $root) . | quote }}
               {{- end }}
 {{- end }}
