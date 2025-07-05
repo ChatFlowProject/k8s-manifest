@@ -10,6 +10,9 @@ spec:
       {{- include "common.selectorLabels" . | nindent 6 }}
   action: ALLOW
   rules:
+    - to:
+        - operation:
+            methods: [ "OPTIONS" ]
     {{- range .Values.authorizationPolicy.secured.rules }}
     - to: # 특정 경로에 대하여,
         - operation:

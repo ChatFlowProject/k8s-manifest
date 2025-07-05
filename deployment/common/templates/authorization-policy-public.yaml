@@ -12,6 +12,9 @@ spec:
   rules:
     - to:
         - operation:
+            methods: [ "OPTIONS" ]
+    - to:
+        - operation:
             paths:
               {{- range .Values.authorizationPolicy.public.allowPaths | default list }}
               - {{ . | quote }}
