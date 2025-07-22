@@ -7,5 +7,6 @@ metadata:
     {{- include "common.labels" . | nindent 4 }}
 data:
   APP_NAME: {{ include "common.name" . }}
+  VERSION: {{ .Values.rollout.image.tag | quote }}
   {{- toYaml .Values.configmap.properties | nindent 2 }}
 {{- end }}
