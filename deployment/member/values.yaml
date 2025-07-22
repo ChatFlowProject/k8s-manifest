@@ -71,12 +71,12 @@ common:
       pullPolicy: IfNotPresent
       tag: ""
     resources:
-      limits:
-        cpu: 300m # 100m = 0.1 CPU 코어
-        memory: 400Mi
       requests:
         cpu: 200m
         memory: 300Mi
+      limits:
+        cpu: 300m
+        memory: 400Mi
     canary:
       steps:
         - setCanaryScale:
