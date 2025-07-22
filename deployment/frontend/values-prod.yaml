@@ -10,7 +10,7 @@ common:
     resources:
       requests:
         cpu: 200m
-        memory: 300Mi
+        memory: 256Mi
       limits:
-        cpu: 300m
-        memory: 400Mi
+        cpu: 500m
+        memory: 512Mi
