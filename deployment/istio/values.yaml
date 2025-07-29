@@ -101,7 +101,6 @@ virtualService:
     - name: http.2
       match:
         - /notification
-        - /noti
         - /sse
       destination:
         service: notification-prod
