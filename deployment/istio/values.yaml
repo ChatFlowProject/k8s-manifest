@@ -102,6 +102,7 @@ virtualService:
       match:
         - /notification
         - /sse
+        - /mention
       destination:
         service: notification-prod
         namespace: chatflow
