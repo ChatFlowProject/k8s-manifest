@@ -13,6 +13,13 @@ spec:
     - to:
         - operation:
             methods: [ "OPTIONS" ]
+    - to: # actuator 경로 공통 인가 처리
+        - operation:
+            paths:
+              - {{ printf "/%s/actuator/*" (include "common.name" .) | quote }}
+      when:
+        - key: request.auth.claims[role]
+          values: [ "ADMIN" ]
     {{- range .Values.authorizationPolicy.secured.rules }}
     - to: # 특정 경로에 대하여,
         - operation:
