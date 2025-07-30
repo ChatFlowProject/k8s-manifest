@@ -15,8 +15,15 @@ common:
       tag: 1.0.0
     resources:
       requests:
-        cpu: 500m
-        memory: 512Mi
-      limits:
         cpu: 1
         memory: 1Gi
+      limits:
+        cpu: 1500m
+        memory: 1536Mi
+#    resources:
+#      requests:
+#        cpu: 500m
+#        memory: 512Mi
+#      limits:
+#        cpu: 1
+#        memory: 1Gi
